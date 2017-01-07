@@ -21,7 +21,8 @@ struct gameSettings {
 class Bot {
 public:
     Bot(gameSettings, Board*);
-    int makeMove();
+    int makeMove() const;
+    void setTimebank(int);
 private:
     gameSettings gs;
     Board* board;
