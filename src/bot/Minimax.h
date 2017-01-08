@@ -6,6 +6,7 @@
 #define CONNECT_4_BOT_MINIMAX_H
 
 #include <limits>
+#include <unordered_map>
 
 #include "../board/Board.h"
 
@@ -17,11 +18,13 @@ public:
     virtual ~Minimax();
     int chooseBestMove(Board*, int, int, int);      // TODO: const?
 private:
-    int evaluateBoard(Board* const, int, int);
+    int evaluateBoard(Board* const, int, int) const;
     std::pair<int, int>  alphaBeta(Board*, int, int, int,
                   MinimaxGoal = Maximize,
                   int = -std::numeric_limits<int>::max(),
                   int = std::numeric_limits<int>::max());
+
+    static const std::unordered_map<std::string, int> patternScore;
 
 
 };

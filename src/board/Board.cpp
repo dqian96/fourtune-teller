@@ -10,9 +10,9 @@ using namespace std;
 
 Board::Board(int rows, int columns): round(0) {
     for (int i = 0; i < rows; i++) {
-        vector<int> row;
+        vector<string> row;
         for (int j = 0; j < columns; j++) {
-            row.push_back(0);
+            row.push_back("0");
         }
         board.push_back(row);
     }
@@ -33,7 +33,7 @@ int Board::getNumColumns() const {
 void Board::clear() {
     for (int i = 0; i < board.size(); i++) {
         for (int j = 0; j < board[i].size(); j++) {
-            board[i][j] = 0;
+            board[i][j] = "0";
         }
     }
 }
@@ -43,7 +43,7 @@ string Board::toString() const {
     for (int i = 0; i < board.size(); i++) {
         string row = "";
         for (int j = 0; j < board[i].size(); j++) {
-            row += intToStr(board[i][j]);
+            row += board[i][j];
             if (j != board[i].size() - 1) {
                 row += ",";
             }
@@ -55,8 +55,20 @@ string Board::toString() const {
     }
     return b;
 }
-int Board::getDisc(int row, int column) const {
-    return board[row][column];
+string Board::getDisc(pair<int, int> position) const {
+    if (!isValidPosition(position)) {
+        return "-1";
+    }
+    return board[position.first][position.second];
+}
+
+bool Board::isValidPosition(pair<int, int> position) const {
+    if (board.size() == 0 || board[0].size() == 0 ||
+            position.first < 0 || position.first > board.size() - 1 ||
+            position.second < 0 || position.second > board[0].size() - 1) {
+        return false;
+    }
+    return true;
 }
 
 void Board::setRound(int r) {
@@ -71,20 +83,20 @@ bool Board::isValidMove(int column) const {
     if (board.size() == 0) {
         return false;
     }
-    return board[0][column] == 0;
+    return board[0][column] == "0";
 }
 
-bool Board::isReachableCell(int row, int column) const {
-    return board[row + 1][column] != 0 ? true : false;
+bool Board::isReachableCell(pair<int, int> position) const {
+    return board[position.first + 1][position.second] != "0" ? true : false;
 }
 
-bool Board::isEmptyCell(int row, int column) const {
-    return board[row + 1][column] != 0 ? false : true;
+bool Board::isEmptyCell(pair<int, int> position) const {
+    return board[position.first + 1][position.second] != "0" ? false : true;
 }
 
 void Board::placeDisc(int player, int column) {
     for (int i = board.size() - 1; i >= 0; i--) {
-        if (board[i][column] == 0) {
+        if (board[i][column] == "0") {
             board[i][column] = player;
             break;
         }

@@ -11,11 +11,12 @@
 class Board {
 public:
     Board(int, int);
-    int getDisc(int, int) const;
+    std::string getDisc(std::pair<int, int>) const;
     void placeDisc(int, int);
     bool isValidMove(int) const;
-    bool isReachableCell(int, int) const;
-    bool isEmptyCell(int, int) const;
+    bool isReachableCell(std::pair<int, int>) const;
+    bool isValidPosition(std::pair<int, int>) const;
+    bool isEmptyCell(std::pair<int, int>) const;
     void clear();
     std::string toString() const;
     void updateFromString(std::string);
@@ -24,7 +25,7 @@ public:
     void setRound(int);
     int getRound() const;
 private:
-    std::vector< std::vector<int> > board;
+    std::vector< std::vector<std::string> > board;
     int round;
 };
 

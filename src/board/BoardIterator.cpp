@@ -18,8 +18,8 @@ void BoardIterator::toBegin() {
 }
 
 void BoardIterator::toEnd() {
-    row = board->getNumRows() - 1;
-    column = board->getNumColumns() - 1;
+    row = -1;
+    column = -1;
 }
 
 bool BoardIterator::isBegin() {
@@ -27,13 +27,14 @@ bool BoardIterator::isBegin() {
 }
 
 bool BoardIterator::isEnd() {
-    return row == board->getNumRows() - 1 && column == board->getNumColumns() - 1;
+    return row == -1 && column == -1;
 }
 
 void BoardIterator::next() {
-    if (isEnd()) {
+    if (row == board->getNumRows() - 1 && column == board->getNumColumns() - 1) {
         // done iterating whole board
-        toBegin();
+        row = -1;
+        column = -1;
     } else {
         if (column == board->getNumColumns() - 1) {
             // done a row; go to next row and the 0th column
@@ -47,70 +48,70 @@ void BoardIterator::next() {
 }
 
 
-int BoardIterator::getDisc() {
-    return board->getDisc(row, column);
+pair<int, int> BoardIterator::getDiscPosition() {
+    return pair<int, int> (row, column);
 }
 
-int BoardIterator::getUpperDisc(int offset) {
+std::pair<int, int> BoardIterator::getUpperDiscPosition(int offset) {
     if (row - offset < 0) {
         // no disc above
-        return -1;
+        return pair<int, int> (-1, -1);
     } else {
-        return board->getDisc(row - offset, column);
+        return pair<int, int> (row - offset, column);
     }
 }
 
-int BoardIterator::getLowerDisc(int offset) {
+std::pair<int, int> BoardIterator::getLowerDiscPosition(int offset) {
     if (row + offset > board->getNumRows() - 1) {
         // no disc below
-        return -1;
+        return pair<int, int> (-1, -1);
     } else {
-        return board->getDisc(row + offset, column);
+        return pair<int, int> (row + offset, column);
     }
 }
 
-int BoardIterator::getLeftDisc(int offset) {
+std::pair<int, int> BoardIterator::getLeftDiscPosition(int offset) {
     if (column - offset < 0) {
         // no disc left
-        return -1;
+        return pair<int, int> (-1, -1);
     } else {
-        return board->getDisc(row, column - offset);
+        return pair<int, int> (row, column - offset);
     }
 }
 
-int BoardIterator::getRightDisc(int offset) {
+std::pair<int, int> BoardIterator::getRightDiscPosition(int offset) {
     if (column + offset > board->getNumColumns() - 1) {
         // no disc right
-        return -1;
+        return pair<int, int> (-1, -1);
     } else {
-        return board->getDisc(row, column + offset);
+        return pair<int, int> (row, column + offset);
     }
 }
 
-int BoardIterator::getUpperLeftDiagonalDisc(int offset) {
-    if (getUpperDisc(offset) != -1 && getLeftDisc(offset) != -1) {
-        return board->getDisc(row - offset, column - offset);
+std::pair<int, int> BoardIterator::getUpperLeftDiagonalDiscPosition(int offset) {
+    if (row - offset < 0 || column - offset < 0) {
+        return pair<int, int> (-1, -1);
     }
-    return -1;
+    return pair<int, int> (row - offset, column - offset);
 }
 
-int BoardIterator::getUpperRightDiagonalDisc(int offset) {
-    if (getUpperDisc(offset) != -1 && getRightDisc(offset) != -1) {
-        return board->getDisc(row - offset, column + offset);
+std::pair<int, int> BoardIterator::getUpperRightDiagonalDiscPosition(int offset) {
+    if (row - offset < 0 || column + offset > board->getNumColumns() - 1) {
+        return pair<int, int> (-1, -1);
     }
-    return -1;
+    return pair<int, int> (row - offset, column - offset);
 }
 
-int BoardIterator::getLowerLeftDiagonalDisc(int offset) {
-    if (getLowerDisc(offset) != -1 && getLeftDisc(offset) != -1) {
-        return board->getDisc(row + offset, column - offset);
+std::pair<int, int> BoardIterator::getLowerLeftDiagonalDiscPosition(int offset) {
+    if (row + offset > board->getNumRows() - 1 || column - offset < 0) {
+        return pair<int, int> (-1, -1);
     }
-    return -1;
+    return pair<int, int> (row - offset, column - offset);
 }
 
-int BoardIterator::getLowerRightDiagonalDisc(int offset) {
-    if (getLowerDisc(offset) != -1 && getRightDisc(offset) != -1) {
-        return board->getDisc(row - offset, column + offset);
+std::pair<int, int> BoardIterator::getLowerRightDiagonalDiscPosition(int offset) {
+    if (row + offset > board->getNumRows() - 1 || column + offset > board->getNumColumns() - 1) {
+        return pair<int, int> (-1, -1);
     }
-    return -1;
+    return pair<int, int> (row - offset, column - offset);
 }

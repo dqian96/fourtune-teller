@@ -8,6 +8,10 @@
 
 using namespace std;
 
+const unordered_map<std::string, int> Minimax::patternScore = {
+        {"1111", numeric_limits<int>::max()}
+};
+
 Minimax::Minimax() {}
 
 Minimax::~Minimax() {}
@@ -123,8 +127,67 @@ pair<int, int> Minimax::alphaBeta(Board* board, int maxmizerId, int minimizerId,
  * OOOO will be caught as a four-in-a-row
  *
  */
-int Minimax::evaluateBoard(Board* const board, int maxmizerId, int minimizerId) {
+int Minimax::evaluateBoard(Board* const board, int maxmizerId, int minimizerId) const {
     BoardIterator* iter = new BoardIterator(board);
+    int score = 0;
 
-    return 0;
+    while (!iter->isEnd() && score != numeric_limits<int>::max() && score != -numeric_limits<int>::max()) {
+        string pattern = "";
+
+        if (!board->isEmptyCell(iter->getDiscPosition())) {
+            // look for 4 in a row
+
+            if (board->isValidPosition(iter->getRightDiscPosition(3))) {
+                // look to the right
+                for (int i = 0; i < 4; i++) {
+                    pattern += board->getDisc(iter->getRightDiscPosition(i));
+                }
+                if (patternScore.count(pattern) != 0) {
+                    return patternScore.at(pattern);
+                }
+                pattern = "";
+            }
+
+            if (board->isValidPosition(iter->getLowerDiscPosition(3))) {
+                // look to the bottom
+                for (int i = 0; i < 4; i++) {
+                    pattern += board->getDisc(iter->getLowerDiscPosition(i));
+                }
+                if (patternScore.count(pattern) != 0) {
+                    return patternScore.at(pattern);
+                }
+                pattern = "";
+            }
+
+            if (board->isValidPosition(iter->getUpperRightDiagonalDiscPosition(3))) {
+                // look to the top right
+                for (int i = 0; i < 4; i++) {
+                    pattern += board->getDisc(iter->getUpperRightDiagonalDiscPosition(i));
+                }
+                if (patternScore.count(pattern) != 0) {
+                    return patternScore.at(pattern);
+                }
+                pattern = "";
+            }
+
+            if (board->isValidPosition(iter->getLowerRightDiagonalDiscPosition(3))) {
+                // look to the bottom left
+                for (int i = 0; i < 4; i++) {
+                    pattern += board->getDisc(iter->getLowerRightDiagonalDiscPosition(i));
+                }
+                if (patternScore.count(pattern) != 0) {
+                    return patternScore.at(pattern);
+                }
+            }
+        } else {
+
+        }
+
+
+        iter->next();
+    }
+
+
+    return score;
 }
+

@@ -17,15 +17,15 @@ public:
     void toEnd();
     bool isBegin();
     bool isEnd();
-    int getDisc();
-    int getUpperDisc(int = 1);
-    int getLowerDisc(int = 1);
-    int getLeftDisc(int = 1);
-    int getRightDisc(int = 1);
-    int getUpperRightDiagonalDisc(int = 1);
-    int getUpperLeftDiagonalDisc(int = 1);
-    int getLowerLeftDiagonalDisc(int = 1);
-    int getLowerRightDiagonalDisc(int = 1);
+    std::pair<int, int> getDiscPosition();
+    std::pair<int, int> getUpperDiscPosition(int = 1);
+    std::pair<int, int> getLowerDiscPosition(int = 1);
+    std::pair<int, int> getLeftDiscPosition(int = 1);
+    std::pair<int, int> getRightDiscPosition(int = 1);
+    std::pair<int, int> getUpperRightDiagonalDiscPosition(int = 1);
+    std::pair<int, int> getUpperLeftDiagonalDiscPosition(int = 1);
+    std::pair<int, int> getLowerLeftDiagonalDiscPosition(int = 1);
+    std::pair<int, int> getLowerRightDiagonalDiscPosition(int = 1);
 private:
     Board* const board;
     int row;
