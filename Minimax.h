@@ -15,10 +15,10 @@ class Minimax {
 public:
     Minimax();
     virtual ~Minimax();
-    int chooseBestMove(Board*, int, int);
+    int chooseBestMove(Board*, int, int, int);      // TODO: const?
 private:
-    int evaluateBoard(std::string);
-    std::pair<int, int>  alphaBeta(Board*, int, int,
+    int evaluateBoard(Board* const);
+    std::pair<int, int>  alphaBeta(Board*, int, int, int,
                   MinimaxGoal = Maximize,
                   int = -std::numeric_limits<int>::max(),
                   int = std::numeric_limits<int>::max());

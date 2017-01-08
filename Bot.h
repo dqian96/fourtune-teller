@@ -15,8 +15,9 @@ struct gameSettings {
     int timebank;
     int timePerMove;
     int id;
+    int adversaryId;
     std::string name;
-    std::string opponentName;
+    std::string adversaryName;
 };
 
 class Bot {

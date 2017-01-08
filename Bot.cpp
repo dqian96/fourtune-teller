@@ -16,15 +16,15 @@ int Bot::makeMove() {
 
     if (board->getRound() < 10) {
         // large branching factor at the start means more time/lookaheads are necessary for a meaningful result
-        return mm.chooseBestMove(board, gs.id, 1);
+        return mm.chooseBestMove(board, gs.id, gs.adversaryId, 5);
     }
 
     if (gs.timebank <= 3000) {
         // not much time left, less piles to avoid TLE
-        return mm.chooseBestMove(board, gs.id, 3);
+        return mm.chooseBestMove(board, gs.id, gs.adversaryId, 3);
     }
 
-    return mm.chooseBestMove(board, gs.id, 4);
+    return mm.chooseBestMove(board, gs.id, gs.adversaryId, 4);
 }
 
 void Bot::setTimebank(int t) {

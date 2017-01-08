@@ -36,10 +36,11 @@ int main() {
                 gs.name = tokens[2];
             } else if (tokens[1] == "your_botid") {
                 gs.id = strToInt(tokens[2]);
+                gs.adversaryId = gs.id == 1 ? 2 : 1;
             } else if (tokens[1] == "player_names") {
                 string player1 = tokens[2].substr(tokens[2].find(',') + 1);
                 string player2 = tokens[2].substr(0, tokens[2].find(','));
-                gs.opponentName = player1 != gs.name ? player1 : player2;
+                gs.adversaryName = player1 != gs.name ? player1 : player2;
             } else if (tokens[1] == "field_rows") {
                 boardRows = strToInt(tokens[2]);
             } else if (tokens[1] == "field_columns") {
@@ -59,7 +60,7 @@ int main() {
             if (tokens[1] == "game") {
                 if (tokens[2] == "field") {
                     board->updateFromString(tokens[3]);
-                    cout << "Board: " << board->toString() << endl;
+                    cout << "Board: " << board->toString() << endl;         // TODO: debug board
                 } else if (tokens[2] == "round") {
                     board->setRound(strToInt(tokens[3]));
                 }
