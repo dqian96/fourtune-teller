@@ -74,7 +74,7 @@ bool Board::isValidMove(int column) const {
     return board[0][column] == 0;
 }
 
-void Board::placeDisc(int column, int player) {
+void Board::placeDisc(int player, int column) {
     for (int i = board.size() - 1; i >= 0; i--) {
         if (board[i][column] == 0) {
             board[i][column] = player;

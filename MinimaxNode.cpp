@@ -7,17 +7,9 @@
 
 using namespace std;
 
-MinimaxNode::MinimaxNode(MinimaxNodeTypes type, string board): type(type), board(board) {
-    if (type == Maximizer) {
-        alpha = numeric_limits<int>::max();
-        beta = -numeric_limits<int>::max();
-        value = -numeric_limits<int>::max();
-    } else if (type == Minimizer) {
-        alpha = -numeric_limits<int>::max();
-        beta = numeric_limits<int>::max();
-        value = numeric_limits<int>::max();
-    }
-}
+MinimaxNode::MinimaxNode(MinimaxNodeTypes type,
+        int alpha = -numeric_limits<int>::max(),
+        int beta = numeric_limits<int>::max()) : type(type), alpha(alpha), beta(beta) {}
 
 MinimaxNode::~MinimaxNode() {
     for (int i = 0; i < children.size(); i++) {
@@ -35,4 +27,32 @@ MinimaxNode* MinimaxNode::getChild(int i) const {
 
 void MinimaxNode::addChild(MinimaxNode* node) {
     children.push_back(node);
+}
+
+void MinimaxNode::update(int candidate) {
+    if (type == Maximizer) {
+        alpha = candidate > alpha ? candidate : alpha;
+    } else {
+        beta = candidate < beta ? candidate : beta;
+    }
+}
+
+int MinimaxNode::getValue() const {
+    return type == Maximizer ? alpha : beta;
+}
+
+int MinimaxNode::getAlpha() const {
+    return alpha;
+}
+
+int MinimaxNode::getBeta() const {
+    return beta;
+}
+
+MinimaxNodeTypes MinimaxNode::getType() const {
+    return type;
+}
+
+bool MinimaxNode::isValid() {
+    return alpha >= beta ? false : true;
 }

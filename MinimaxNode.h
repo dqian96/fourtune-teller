@@ -8,22 +8,30 @@
 
 #include <vector>
 #include <string>
+#include <limits>
 
-enum MinimaxNodeTypes {Maximizer, Minimizer, Leaf};
+enum MinimaxNodeTypes {Maximizer, Minimizer};
 
 class MinimaxNode {
 public:
-    MinimaxNode(MinimaxNodeTypes, std::string);
+    MinimaxNode(MinimaxNodeTypes,
+            int = -std::numeric_limits<int>::max(),
+            int = std::numeric_limits<int>::max());
     virtual ~MinimaxNode();
     int getNumChildren() const;
     MinimaxNode* getChild(int) const;
     void addChild(MinimaxNode*);
+    void update(int);
+    bool isValid();
+    int getValue() const;
+    int getAlpha() const;
+    int getBeta() const;
+    std::string getBoard() const;
+    MinimaxNodeTypes getType() const;
 private:
-    std::string board;
     MinimaxNodeTypes type;
     int alpha;
     int beta;
-    int value;
     std::vector<MinimaxNode*> children;
 };
 

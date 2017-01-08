@@ -7,6 +7,7 @@
 
 
 #include "Board.h"
+#include "Minimax.h"
 
 #include <string>
 
@@ -21,11 +22,12 @@ struct gameSettings {
 class Bot {
 public:
     Bot(gameSettings, Board*);
-    int makeMove() const;
+    int makeMove();
     void setTimebank(int);
 private:
     gameSettings gs;
     Board* board;
+    Minimax mm;
 };
 
 
