@@ -78,6 +78,7 @@ void Board::placeDisc(int player, int column) {
     for (int i = board.size() - 1; i >= 0; i--) {
         if (board[i][column] == 0) {
             board[i][column] = player;
+            break;
         }
     }
 }

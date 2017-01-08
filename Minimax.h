@@ -18,7 +18,7 @@ public:
     int chooseBestMove(Board*, int, int);
 private:
     int evaluateBoard(std::string);
-    int alphaBeta(Board*, int, int,
+    std::pair<int, int>  alphaBeta(Board*, int, int,
                   MinimaxGoal = Maximize,
                   int = -std::numeric_limits<int>::max(),
                   int = std::numeric_limits<int>::max());

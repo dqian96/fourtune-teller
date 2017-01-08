@@ -16,7 +16,7 @@ int Bot::makeMove() {
 
     if (board->getRound() < 10) {
         // large branching factor at the start means more time/lookaheads are necessary for a meaningful result
-        return mm.chooseBestMove(board, gs.id, 6);
+        return mm.chooseBestMove(board, gs.id, 1);
     }
 
     if (gs.timebank <= 3000) {
