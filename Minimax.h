@@ -5,8 +5,8 @@
 #ifndef CONNECT_4_BOT_MINIMAX_H
 #define CONNECT_4_BOT_MINIMAX_H
 
+#include <limits>
 
-#include "MinimaxNode.h"
 #include "Board.h"
 
 enum MinimaxGoal {Maximize, Minimize};
