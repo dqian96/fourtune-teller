@@ -14,6 +14,8 @@ public:
     int getDisc(int, int) const;
     void placeDisc(int, int);
     bool isValidMove(int) const;
+    bool isReachableCell(int, int) const;
+    bool isEmptyCell(int, int) const;
     void clear();
     std::string toString() const;
     void updateFromString(std::string);

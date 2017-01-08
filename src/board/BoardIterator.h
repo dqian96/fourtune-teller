@@ -18,14 +18,14 @@ public:
     bool isBegin();
     bool isEnd();
     int getDisc();
-    int getUpperDisc();
-    int getLowerDisc();
-    int getLeftDisc();
-    int getRightDisc();
-    int getUpperRightDiagonalDisc();
-    int getUpperLeftDiagonalDisc();
-    int getLowerLeftDiagonalDisc();
-    int getLowerRightDiagonalDisc();
+    int getUpperDisc(int = 1);
+    int getLowerDisc(int = 1);
+    int getLeftDisc(int = 1);
+    int getRightDisc(int = 1);
+    int getUpperRightDiagonalDisc(int = 1);
+    int getUpperLeftDiagonalDisc(int = 1);
+    int getLowerLeftDiagonalDisc(int = 1);
+    int getLowerRightDiagonalDisc(int = 1);
 private:
     Board* const board;
     int row;

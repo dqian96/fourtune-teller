@@ -6,7 +6,7 @@
 #define CONNECT_4_BOT_BOT_H
 
 
-#include "Board.h"
+#include "../board/Board.h"
 #include "Minimax.h"
 
 #include <string>

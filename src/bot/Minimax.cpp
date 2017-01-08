@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Minimax.h"
-#include "BoardIterator.h"
+#include "../board/BoardIterator.h"
 
 using namespace std;
 
@@ -33,7 +33,7 @@ pair<int, int> Minimax::alphaBeta(Board* board, int maxmizerId, int minimizerId,
     counter += 1;
     if (piles == 0) {
         // evaluate leaf node
-        return pair<int, int> (evaluateBoard(board), -1);
+        return pair<int, int> (evaluateBoard(board, maxmizerId, minimizerId), -1);
     }
 
     // save board at current state
@@ -87,7 +87,7 @@ pair<int, int> Minimax::alphaBeta(Board* board, int maxmizerId, int minimizerId,
  * X -> cannot play
  * _ -> reachable empty cell
  * ^ -> unreachable empty cell
- * / -> or
+ * [x/y] -> x or y
  * (...) -> cell in question
  *
  * Scoring (values positive for current player, negative for adversary):
@@ -103,25 +103,27 @@ pair<int, int> Minimax::alphaBeta(Board* board, int maxmizerId, int minimizerId,
  * Note: "" implies that it does not matter what piece the correspondent cell contain (i.e. (_) means the
  * pieces left and right of the empty cell do not matter)
  *
- * ^/_OO(_)X/_/^ (W, R)
- * ^/_OO(^)X/_/^ (W, U)
- * symmetry for reflection i.e.(_)OO^
+ * [^/_]OO(_)[X/_/^] (W, R)
+ * [^/_]OO(^)[X/_/^] (W, U)
+ * symmetry for reflection i.e.[X/_/^](_)OO[^/_]
  *
- * ^/_O(_)OX/_/^ (W, R)
- * ^/_O(^)OX/_/^ (W, U)
+ * [^/_]O(_)O[X/_/^] (W, R)
+ * [^/_]O(^)O[X/_/^] (W, U)
  * symmetry for reflection
  *
- * OOO(_)X/_/^ (W, R)
- * OOO(^)X/_/^ (S, U)
+ * OOO(_) (S, R)
+ * OOO(^) (S, U)
+ * symmetric for reflection
  *
  * OO(_)O (S, R)
  * OO(^)O (S, U)
+ * symmetry for reflection
  *
  * Note: the reason why the left and right cells (of the pattern) do not matter is that
  * OOOO will be caught as a four-in-a-row
  *
  */
-int Minimax::evaluateBoard(Board* const board) {
+int Minimax::evaluateBoard(Board* const board, int maxmizerId, int minimizerId) {
     BoardIterator* iter = new BoardIterator(board);
 
     return 0;

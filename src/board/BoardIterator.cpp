@@ -46,70 +46,71 @@ void BoardIterator::next() {
     }
 }
 
+
 int BoardIterator::getDisc() {
     return board->getDisc(row, column);
 }
 
-int BoardIterator::getUpperDisc() {
-    if (row == 0) {
+int BoardIterator::getUpperDisc(int offset) {
+    if (row - offset < 0) {
         // no disc above
         return -1;
     } else {
-        return board->getDisc(row - 1, column);
+        return board->getDisc(row - offset, column);
     }
 }
 
-int BoardIterator::getLowerDisc() {
-    if (row == board->getNumRows() - 1) {
+int BoardIterator::getLowerDisc(int offset) {
+    if (row + offset > board->getNumRows() - 1) {
         // no disc below
         return -1;
     } else {
-        return board->getDisc(row + 1, column);
+        return board->getDisc(row + offset, column);
     }
 }
 
-int BoardIterator::getLeftDisc() {
-    if (column == 0) {
+int BoardIterator::getLeftDisc(int offset) {
+    if (column - offset < 0) {
         // no disc left
         return -1;
     } else {
-        return board->getDisc(row, column - 1);
+        return board->getDisc(row, column - offset);
     }
 }
 
-int BoardIterator::getRightDisc() {
-    if (column == board->getNumColumns() - 1) {
+int BoardIterator::getRightDisc(int offset) {
+    if (column + offset > board->getNumColumns() - 1) {
         // no disc right
         return -1;
     } else {
-        return board->getDisc(row, column + 1);
+        return board->getDisc(row, column + offset);
     }
 }
 
-int BoardIterator::getUpperLeftDiagonalDisc() {
-    if (getUpperDisc() != -1 && getLeftDisc() != -1) {
-        return board->getDisc(row - 1, column - 1);
-    }
-    return -1;
-}
-
-int BoardIterator::getUpperRightDiagonalDisc() {
-    if (getUpperDisc() != -1 && getRightDisc() != -1) {
-        return board->getDisc(row - 1, column + 1);
+int BoardIterator::getUpperLeftDiagonalDisc(int offset) {
+    if (getUpperDisc(offset) != -1 && getLeftDisc(offset) != -1) {
+        return board->getDisc(row - offset, column - offset);
     }
     return -1;
 }
 
-int BoardIterator::getLowerLeftDiagonalDisc() {
-    if (getLowerDisc() != -1 && getLeftDisc() != -1) {
-        return board->getDisc(row + 1, column - 1);
+int BoardIterator::getUpperRightDiagonalDisc(int offset) {
+    if (getUpperDisc(offset) != -1 && getRightDisc(offset) != -1) {
+        return board->getDisc(row - offset, column + offset);
     }
     return -1;
 }
 
-int BoardIterator::getLowerRightDiagonalDisc() {
-    if (getLowerDisc() != -1 && getRightDisc() != -1) {
-        return board->getDisc(row - 1, column + 1);
+int BoardIterator::getLowerLeftDiagonalDisc(int offset) {
+    if (getLowerDisc(offset) != -1 && getLeftDisc(offset) != -1) {
+        return board->getDisc(row + offset, column - offset);
+    }
+    return -1;
+}
+
+int BoardIterator::getLowerRightDiagonalDisc(int offset) {
+    if (getLowerDisc(offset) != -1 && getRightDisc(offset) != -1) {
+        return board->getDisc(row - offset, column + offset);
     }
     return -1;
 }

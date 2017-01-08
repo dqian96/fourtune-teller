@@ -4,7 +4,7 @@
 
 #include <sstream>
 #include "Board.h"
-#include "Utils.h"
+#include "../utils/Utils.h"
 
 using namespace std;
 
@@ -72,6 +72,14 @@ bool Board::isValidMove(int column) const {
         return false;
     }
     return board[0][column] == 0;
+}
+
+bool Board::isReachableCell(int row, int column) const {
+    return board[row + 1][column] != 0 ? true : false;
+}
+
+bool Board::isEmptyCell(int row, int column) const {
+    return board[row + 1][column] != 0 ? false : true;
 }
 
 void Board::placeDisc(int player, int column) {

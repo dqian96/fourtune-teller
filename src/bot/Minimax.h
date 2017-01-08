@@ -7,7 +7,7 @@
 
 #include <limits>
 
-#include "Board.h"
+#include "../board/Board.h"
 
 enum MinimaxGoal {Maximize, Minimize};
 
@@ -17,11 +17,13 @@ public:
     virtual ~Minimax();
     int chooseBestMove(Board*, int, int, int);      // TODO: const?
 private:
-    int evaluateBoard(Board* const);
+    int evaluateBoard(Board* const, int, int);
     std::pair<int, int>  alphaBeta(Board*, int, int, int,
                   MinimaxGoal = Maximize,
                   int = -std::numeric_limits<int>::max(),
                   int = std::numeric_limits<int>::max());
+
+
 };
 
 

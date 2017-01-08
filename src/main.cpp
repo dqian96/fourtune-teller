@@ -3,9 +3,9 @@
 #include <vector>
 #include <iterator>
 
-#include "Board.h"
-#include "Bot.h"
-#include "Utils.h"
+#include "board/Board.h"
+#include "bot/Bot.h"
+#include "utils/Utils.h"
 
 using namespace std;
 
