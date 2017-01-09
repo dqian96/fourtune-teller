@@ -43,7 +43,7 @@ string Board::toString() const {
     for (int i = 0; i < board.size(); i++) {
         string row = "";
         for (int j = 0; j < board[i].size(); j++) {
-            row += board[i][j];
+            row += intToStr(board[i][j]);
             if (j != board[i].size() - 1) {
                 row += ",";
             }
@@ -86,21 +86,33 @@ bool Board::isValidMove(int column) const {
     return board[0][column] == 0;
 }
 
-bool Board::isReachableCell(pair<int, int> position) const {
-    return board[position.first + 1][position.second] != 0 ? true : false;
+bool Board::isReachableCell(pair<int, int> cell) const {
+    if (!isValidPosition(cell)) {
+        return false;
+    }
+    if (isEmptyCell(cell) &&
+            (cell.first == board.size() - 1 || board[cell.first + 1][cell.second] != 0)) {
+        return true;
+    }
+    return false;
 }
 
-bool Board::isEmptyCell(pair<int, int> position) const {
-    return board[position.first + 1][position.second] != 0 ? false : true;
+bool Board::isEmptyCell(pair<int, int> cell) const {
+    return board[cell.first][cell.second] == 0 ? true : false;
 }
 
-void Board::placeDisc(int player, int column) {
+bool Board::isOddRowCell(pair<int, int> cell) const {
+    return cell.first % 2 == 1 ? true : false;
+}
+
+pair<int, int> Board::placeDisc(int player, int column) {
     for (int i = board.size() - 1; i >= 0; i--) {
         if (board[i][column] == 0) {
-            board[i][column] = player;
-            break;
+            board[i][column] = player;          // cell filled due to piece
+            return pair<int, int> (i, column);  // return cell filled due to piece
         }
     }
+    return pair<int, int> (-1, -1);
 }
 
 void Board::updateFromString(std::string s) {

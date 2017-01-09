@@ -12,12 +12,13 @@ class Board {
 public:
     Board(int, int);
     int getDisc(std::pair<int, int>) const;
-    void placeDisc(int, int);
+    std::pair<int, int> placeDisc(int, int);
     bool isValidMove(int) const;
     bool isReachableCell(std::pair<int, int>) const;
     bool isValidPosition(std::pair<int, int>) const;
     bool isEmptyCell(std::pair<int, int>) const;
     void clear();
+    bool isOddRowCell(std::pair<int, int>) const;
     std::string toString() const;
     void updateFromString(std::string);
     int getNumRows() const;

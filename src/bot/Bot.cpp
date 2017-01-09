@@ -14,14 +14,14 @@ int Bot::makeMove() {
         return board->getNumColumns()/2;
     }
 
-    if (board->getRound() < 10) {
-        // large branching factor at the start means more time/lookaheads are necessary for a meaningful result
-        return mm.chooseBestMove(board, gs.id, gs.adversaryId, 5);
-    }
-
     if (gs.timebank <= 3000) {
         // not much time left, less piles to avoid TLE
         return mm.chooseBestMove(board, gs.id, gs.adversaryId, 3);
+    }
+
+    if (board->getRound() < 10) {
+        // large branching factor at the start means more time/lookaheads are necessary for a meaningful result
+        return mm.chooseBestMove(board, gs.id, gs.adversaryId, 5);
     }
 
     return mm.chooseBestMove(board, gs.id, gs.adversaryId, 4);

@@ -17,6 +17,7 @@ public:
     void toEnd();
     bool isBegin();
     bool isEnd();
+    void set(std::pair<int, int>);
     std::pair<int, int> getDiscPosition();
     std::pair<int, int> getUpperDiscPosition(int = 1);
     std::pair<int, int> getLowerDiscPosition(int = 1);

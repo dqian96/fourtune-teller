@@ -34,13 +34,18 @@ private:
     int evaluateBoard(Board* const, int, int) const;
 
 
-    std::pair<int, int>  alphaBeta(Board*, int, int, int,
-                  MinimaxGoal = Maximize,
-                  int = -std::numeric_limits<int>::max(),
-                  int = std::numeric_limits<int>::max());
+    std::pair<int, int>  alphaBeta(Board*, int, int, int, int,
+                                   MinimaxGoal = Maximize,
+                                   int = -std::numeric_limits<int>::max(),
+                                   int = std::numeric_limits<int>::max(),
+                                   int = -1);
 
     static const std::unordered_map<std::string, int> patternScore;
+    static const std::vector<std::pair<
+            std::pair<int, int> (BoardIterator::*)(int), std::pair<int, int> (BoardIterator::*)(int)>>
+            patternPossibleDirections;
 
+    static const std::vector< std::pair<int, int> > threatPatternPossibleBounds;
 
 };
 

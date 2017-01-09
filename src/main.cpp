@@ -60,7 +60,7 @@ int main() {
             if (tokens[1] == "game") {
                 if (tokens[2] == "field") {
                     board->updateFromString(tokens[3]);
-                    cout << "Board: " << board->toString() << endl;         // TODO: debug board
+                    //cout << "Board: " << board->toString() << endl;
                 } else if (tokens[2] == "round") {
                     board->setRound(strToInt(tokens[3]));
                 }

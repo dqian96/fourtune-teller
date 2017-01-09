@@ -22,6 +22,11 @@ void BoardIterator::toEnd() {
     column = -1;
 }
 
+void BoardIterator::set(pair<int, int> cell) {
+    row = cell.first;
+    column = cell.second;
+}
+
 bool BoardIterator::isBegin() {
     return row == 0 && column == 0;
 }
