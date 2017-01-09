@@ -21,7 +21,7 @@ public:
 private:
     std::string flipPatternPerspective(std::string maximimzerPattern) const;
 
-    char generateCellSymbolFromMaximizerPerspective(Board* const, std::pair<int, int>,
+    std::string generateCellSymbolFromMaximizerPerspective(Board* const, std::pair<int, int>,
                                                              int, int) const;
 
     std::string getPatternFromMaximizerPerspective(

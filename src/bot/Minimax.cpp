@@ -41,6 +41,8 @@ using namespace std;
  *
  * Possible threat patterns, categorized (S/W for strong/weak threat, R/U for reachable/unreachable) :
  *
+ * (O)OOO (REALIZED)
+
  * [^/_]OO(_)[X/_/^] (W, R)
  * [^/_]OO(^)[X/_/^] (W, U)
  * symmetry for reflection i.e.[X/_/^](_)OO[^/_]
@@ -56,12 +58,90 @@ using namespace std;
  * OO(_)O (S, R)
  * OO(^)O (S, U)
  * symmetry for reflection
- *
- * OOOO (REALIZED)
+
  *
  */
 const unordered_map<std::string, int> Minimax::patternScore = {
-        {"OOOO", numeric_limits<int>::max()}
+        // (REALIZED)
+        {"(O)OOO", numeric_limits<int>::max()},
+
+        // [^/_]OO(_)[X/_/^] (W, R)
+        {"^OO(_)X", 3},
+        {"^OO(_)_", 3},
+        {"^OO(_)^", 3},
+        {"_OO(_)X", 3},
+        {"_OO(_)_", 3},
+        {"_OO(_)^", 3},
+
+        {"X(_)OO^", 3},
+        {"_(_)OO^", 3},
+        {"^(_)OO^", 3},
+        {"X(_)OO_", 3},
+        {"_(_)OO_", 3},
+        {"^(_)OO_", 3},
+
+        // [^/_]O(_)O[X/_/^] (W, R)
+        {"^O(_)OX", 3},
+        {"^O(_)O_", 3},
+        {"^O(_)O^", 3},
+        {"_O(_)OX", 3},
+        {"_O(_)O_", 3},
+        {"_O(_)O^", 3},
+
+        {"XO(_)O^", 3},
+        {"_O(_)O^", 3},
+        {"^O(_)O^", 3},
+        {"XO(_)O_", 3},
+        {"_O(_)O_", 3},
+        {"^O(_)O_", 3},
+
+        // [^/_]OO(^)[X/_/^] (W, U)
+        {"^OO(^)X", 1},
+        {"^OO(^)_", 1},
+        {"^OO(^)^", 1},
+        {"_OO(^)X", 1},
+        {"_OO(^)_", 1},
+        {"_OO(^)^", 1},
+
+        {"X(^)OO^", 1},
+        {"_(^)OO^", 1},
+        {"^(^)OO^", 1},
+        {"X(^)OO_", 1},
+        {"_(^)OO_", 1},
+        {"^(^)OO_", 1},
+
+        // [^/_]O(^)O[X/_/^] (W, U)
+        {"^O(^)OX", 1},
+        {"^O(^)O_", 1},
+        {"^O(^)O^", 1},
+        {"_O(^)OX", 1},
+        {"_O(^)O_", 1},
+        {"_O(^)O^", 1},
+
+        {"XO(^)O^", 1},
+        {"_O(^)O^", 1},
+        {"^O(^)O^", 1},
+        {"XO(^)O_", 1},
+        {"_O(^)O_", 1},
+        {"^O(^)O_", 1},
+
+        // OOO(_) (S, R)
+        {"OOO(_)", 15},
+        {"(_)OOO", 15},
+
+
+        // OOO(^) (S, U)
+        {"OOO(^)", 5},
+        {"(^)OOO", 5},
+
+
+        // OO(_)O (S, R)
+        {"OO(_)O", 15},
+        {"O(_)OO", 15},
+
+        // OO(^)O  (S, U)
+        {"OO(^)O ", 5},
+        {"O(^)OO", 5},
 };
 
 
@@ -126,18 +206,18 @@ pair<int, int> Minimax::alphaBeta(Board* board, int maxmizerId, int minimizerId,
     return pair<int, int> (goal == Maximize ? alpha : beta, bestMove);
 }
 
-char Minimax::generateCellSymbolFromMaximizerPerspective(
+string Minimax::generateCellSymbolFromMaximizerPerspective(
         Board* const board, pair<int, int> cell,
         int maximizerId, int minimizerId) const {
     int cellValue = board->getDisc(cell);
     if (cellValue == maximizerId) {
-        return 'O';
+        return "O";
     } else if (cellValue == minimizerId) {
-        return 'X';
+        return "X";
     } else if (board->isReachableCell(cell)) {      // empty reachable
-        return '_';
+        return "_";
     } else {                                        // empty unreachable
-        return '^';
+        return "^";
     }
 }
 
@@ -170,8 +250,8 @@ string Minimax::getPatternFromMaximizerPerspective(
         pattern += generateCellSymbolFromMaximizerPerspective(board, cell, maximizerId, minimizerId);
     }
 
-    // generate pattern/symbol for currentCell
-    pattern += generateCellSymbolFromMaximizerPerspective(board, currentCell, maximizerId, minimizerId);
+    // generate pattern/symbol for currentCell ("(" and ")" means that there is no ambiguity about which cell is threat)
+    pattern += "(" + generateCellSymbolFromMaximizerPerspective(board, currentCell, maximizerId, minimizerId) + ")";
 
     for (int i = 1; i <= upperBound; i++) {
         // generate pattern for (currentCell, upper bound]
