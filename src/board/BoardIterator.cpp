@@ -47,7 +47,6 @@ void BoardIterator::next() {
     }
 }
 
-
 pair<int, int> BoardIterator::getDiscPosition() {
     return pair<int, int> (row, column);
 }

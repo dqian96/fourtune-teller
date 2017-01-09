@@ -131,6 +131,14 @@ int Minimax::evaluateBoard(Board* const board, int maxmizerId, int minimizerId) 
     BoardIterator* iter = new BoardIterator(board);
     int score = 0;
 
+    // two strings, maximizer and minizer?
+    // from perspective of maximizer
+        // if spot is maximizerId -> put O
+        // if spot is minimizerId -> put X
+        // score + positive lookup
+    // if maximizer perspective doesnt yield then from persepective of minimizer:
+        // reverse X and Os
+        // score - negative lookup
     while (!iter->isEnd() && score != numeric_limits<int>::max() && score != -numeric_limits<int>::max()) {
         string pattern = "";
 
@@ -143,7 +151,7 @@ int Minimax::evaluateBoard(Board* const board, int maxmizerId, int minimizerId) 
                     pattern += board->getDisc(iter->getRightDiscPosition(i));
                 }
                 if (patternScore.count(pattern) != 0) {
-                    return patternScore.at(pattern);
+                    score += patternScore.at(pattern);
                 }
                 pattern = "";
             }
@@ -182,12 +190,8 @@ int Minimax::evaluateBoard(Board* const board, int maxmizerId, int minimizerId) 
         } else {
 
         }
-
-
         iter->next();
     }
-
-
     return score;
 }
 
