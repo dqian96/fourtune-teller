@@ -313,9 +313,13 @@ string Minimax::generateCellSymbolFromMaximizerPerspective(
 }
 
 string Minimax::flipPatternPerspective(string maximimzerPattern) const {
-    replace(maximimzerPattern.begin(), maximimzerPattern.end(), 'O', '~');
-    replace(maximimzerPattern.begin(), maximimzerPattern.end(), 'X', 'O');
-    replace(maximimzerPattern.begin(), maximimzerPattern.end(), '~', 'X');
+    for (int i = 0; i < maximimzerPattern.size(); i++) {
+        if (maximimzerPattern[i] == 'O') {
+            maximimzerPattern[i] = 'X';
+        } else if (maximimzerPattern[i] == 'X') {
+            maximimzerPattern[i] = 'O';
+        }
+    }
     return maximimzerPattern;
 }
 
