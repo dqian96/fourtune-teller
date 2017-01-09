@@ -11,7 +11,7 @@
 class Board {
 public:
     Board(int, int);
-    std::string getDisc(std::pair<int, int>) const;
+    int getDisc(std::pair<int, int>) const;
     void placeDisc(int, int);
     bool isValidMove(int) const;
     bool isReachableCell(std::pair<int, int>) const;
@@ -25,7 +25,7 @@ public:
     void setRound(int);
     int getRound() const;
 private:
-    std::vector< std::vector<std::string> > board;
+    std::vector< std::vector<int> > board;
     int round;
 };
 
