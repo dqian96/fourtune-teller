@@ -36,4 +36,6 @@ Since the game server allows for 10000ms and +500ms for each turn, the number of
 more optimal performance.
 
 ## TODOs
-Heuristic evaluation functon sometimes search empty rows/vertices for threats
+* evaluation functon sometimes searches empty rows/vertices for threats
+* iterative deepening
+* transposition table
