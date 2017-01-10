@@ -103,19 +103,19 @@ std::pair<int, int> BoardIterator::getUpperRightDiagonalDiscPosition(int offset)
     if (row - offset < 0 || column + offset > board->getNumColumns() - 1) {
         return pair<int, int> (-1, -1);
     }
-    return pair<int, int> (row - offset, column - offset);
+    return pair<int, int> (row - offset, column + offset);
 }
 
 std::pair<int, int> BoardIterator::getLowerLeftDiagonalDiscPosition(int offset) {
     if (row + offset > board->getNumRows() - 1 || column - offset < 0) {
         return pair<int, int> (-1, -1);
     }
-    return pair<int, int> (row - offset, column - offset);
+    return pair<int, int> (row + offset, column - offset);
 }
 
 std::pair<int, int> BoardIterator::getLowerRightDiagonalDiscPosition(int offset) {
     if (row + offset > board->getNumRows() - 1 || column + offset > board->getNumColumns() - 1) {
         return pair<int, int> (-1, -1);
     }
-    return pair<int, int> (row - offset, column - offset);
+    return pair<int, int> (row + offset, column + offset);
 }

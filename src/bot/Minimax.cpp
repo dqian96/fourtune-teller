@@ -373,7 +373,7 @@ int Minimax::evaluateBoard(Board* const board, int maximizerId, int minimizerId)
         string pattern  = "";
         pair<int, int> currentCell = iter->getDiscPosition();
         if (board->isEmptyCell(currentCell)) {
-            int multiplier = board->isOddRowCell(currentCell) ? 2 : 1;
+            int multiplier = board->isOddRowCell(currentCell) ? 1.5 : 1;    // TODO: 2 before
             // current cell is empty; look for threat pattern (4-in-a-row already caught by alphaBeta)
             for (int i = 0; i < patternPossibleDirections.size(); i++) {
                 for (int j = 0; j < threatPatternPossibleBounds.size(); j++) {
