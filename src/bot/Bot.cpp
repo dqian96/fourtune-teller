@@ -14,7 +14,7 @@ int Bot::makeMove() {
         return board->getNumColumns()/2;
     }
 
-    if (gs.timebank >= 5000 && board->getRound() >= 21) {
+    if (gs.timebank >= 5000 && board->getRound() >= 31) {
         // good amount of time left; increase number of piles as average branching
         // factor decreases
         return mm.chooseBestMove(board, gs.id, gs.adversaryId, 7);
