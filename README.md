@@ -29,7 +29,7 @@ Typically, the bot looks 5 moves/piles ahead. The number of moves to look ahead 
 progress of the game (i.e. search through more piles during end games as average branching factor decreases) and the
 time remaining in the time bank.
 
-However, looking ahead 5 moves is actually extremely conservative, since it only takes approx 600 ms on the game server to search the tree
+However, looking ahead 5 moves is actually extremely conservative, since it only takes approx 700 ms on the game server to search the tree
 (determined through experimentation).
 
 Since the game server allows for 10000ms and +500ms for each turn, the number of piles could be increased for
