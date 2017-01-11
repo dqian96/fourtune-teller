@@ -26,8 +26,7 @@ private:
 
     std::string getPatternFromMaximizerPerspective(
             Board* const, int, int,
-            std::pair<int, int>, int, int,
-            BoardIterator*,
+            BoardIterator*, int, int,
             std::pair<int, int> (BoardIterator::*)(int), std::pair<int, int>(BoardIterator::*)(int)) const;
 
 

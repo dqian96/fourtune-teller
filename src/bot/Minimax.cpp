@@ -242,12 +242,12 @@ pair<int, int> Minimax::alphaBeta(Board* board, int maximizerId, int minimizerId
             for (int i = 0; i < patternPossibleDirections.size(); i++) {
                 for (int j = 0; j < 4; j++) {
                     pattern = getPatternFromMaximizerPerspective(board, maximizerId, minimizerId,
-                                                                 playedCell,
+                                                                 iter,
                                                                  j,
                                                                  3 - j,
-                                                                 iter,
                                                                  patternPossibleDirections[i].first,
                                                                  patternPossibleDirections[i].second);
+
                     if (patternScore.count(pattern) != 0) {
                         // maximizer win
                         candidate = alphaBeta(board, maximizerId, minimizerId, piles - 1, originalPiles, childGoal,
@@ -284,15 +284,16 @@ pair<int, int> Minimax::alphaBeta(Board* board, int maximizerId, int minimizerId
                 bestMove = oldBeta != beta ? move : bestMove;
             }
 
+            // refresh board back to current state
+            board->updateFromString(originalBoard);
+
             // prune the remaining subtrees if root is invalid/impossible
             if (alpha >= beta) {
                 break;
             }
-
-            // refresh board back to current state
-            board->updateFromString(originalBoard);
         }
     }
+
     delete iter;
     return pair<int, int> (goal == Maximize ? alpha : beta, bestMove);
 }
@@ -326,12 +327,11 @@ string Minimax::flipPatternPerspective(string maximimzerPattern) const {
 
 string Minimax::getPatternFromMaximizerPerspective(
         Board* const board, int maximizerId, int minimizerId,
-        pair<int, int> currentCell, int lowerBound, int upperBound,
-        BoardIterator* iter,
+        BoardIterator* iter, int lowerBound, int upperBound,
         pair<int, int> (BoardIterator::*decrementer)(int), pair<int, int>(BoardIterator::*incrementer)(int)) const {
 
     if (!board->isValidPosition((iter->*decrementer)(lowerBound)) ||
-            !board->isValidPosition((iter->*decrementer)(upperBound))) {
+            !board->isValidPosition((iter->*incrementer)(upperBound))) {
         // one of the lower/upper bounds/limits/positions are invalid (i.e. outside the board)
         return "";
     }
@@ -346,7 +346,7 @@ string Minimax::getPatternFromMaximizerPerspective(
     }
 
     // generate pattern/symbol for currentCell ("(" and ")" means that there is no ambiguity about which cell is threat)
-    pattern += "(" + generateCellSymbolFromMaximizerPerspective(board, currentCell, maximizerId, minimizerId) + ")";
+    pattern += "(" + generateCellSymbolFromMaximizerPerspective(board, iter->getDiscPosition(), maximizerId, minimizerId) + ")";
 
     for (int i = 1; i <= upperBound; i++) {
         // generate pattern for (currentCell, upper bound]
@@ -378,10 +378,9 @@ int Minimax::evaluateBoard(Board* const board, int maximizerId, int minimizerId)
             for (int i = 0; i < patternPossibleDirections.size(); i++) {
                 for (int j = 0; j < threatPatternPossibleBounds.size(); j++) {
                     pattern = getPatternFromMaximizerPerspective(board, maximizerId, minimizerId,
-                                                                 currentCell,
+                                                                 iter,
                                                                  threatPatternPossibleBounds[j].first,
                                                                  threatPatternPossibleBounds[j].second,
-                                                                 iter,
                                                                  patternPossibleDirections[i].first,
                                                                  patternPossibleDirections[i].second);
 

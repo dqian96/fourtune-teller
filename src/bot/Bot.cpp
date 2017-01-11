@@ -17,7 +17,7 @@ int Bot::makeMove() {
     if (gs.timebank >= 5000 && board->getRound() >= 21) {
         // good amount of time left; increase number of piles as average branching
         // factor decreases
-        return mm.chooseBestMove(board, gs.id, gs.adversaryId, 6);
+        return mm.chooseBestMove(board, gs.id, gs.adversaryId, 7);
     }
 
     if (gs.timebank <= 1000) {
@@ -32,7 +32,7 @@ int Bot::makeMove() {
     }
 
     // normal search depth
-    return mm.chooseBestMove(board, gs.id, gs.adversaryId, 5); // TODO: 5 normal before
+    return mm.chooseBestMove(board, gs.id, gs.adversaryId, 6);
 }
 
 void Bot::setTimebank(int t) {
